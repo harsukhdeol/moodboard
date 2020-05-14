@@ -2,5 +2,5 @@ import { combineReducers } from "redux";
 import itemReducer from "./itemReducer";
 
 export default combineReducers({
-    ittem: itemReducer
+    item: itemReducer
 })
