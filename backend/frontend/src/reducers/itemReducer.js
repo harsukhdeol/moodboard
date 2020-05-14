@@ -1,26 +1,9 @@
 //where state is going to go
-import { v1 as uuid } from "uuid";
 import { GET_ITEMS, ADD_ITEM, DELETE_ITEM } from "../actions/types";
 
 const initialState = {
-  items: [
-    {
-      id: uuid(),
-      name: "molk",
-    },
-    {
-      id: uuid(),
-      name: "cereal",
-    },
-    {
-      id: uuid(),
-      name: "pop tarts",
-    },
-    {
-      id: uuid(),
-      name: "waffles",
-    },
-  ],
+  items: [],
+  loading: false,
 };
 
 export default function (state = initialState, action) {
