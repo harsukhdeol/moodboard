@@ -15,7 +15,10 @@ const db = require("./config/keys").mongoURI;
 
 //Connect to Mongo
 mongoose
-  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(process.env.MONGO_URI || db, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log("mongodb connected");
   })
@@ -29,10 +32,10 @@ app.use("/api/items", items);
 //serve static assets if in production
 if (process.env.NODE_ENV === "production") {
   //set static folder
-  app.use(express.static("frontend/build")); //load html in frontend/build - set folder
+  app.use(express.static("client/build")); //- set build folder location
   app.get("*", (req, res) => {
     //load html
-    res.sendFile(path.resolve(__dirname, "frontend", "build"));
+    res.sendFile(path.join(__dirname, "client", "build")); //send link
   });
 }
 const port = process.env.PORT || 5000;
