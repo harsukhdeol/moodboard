@@ -3,7 +3,6 @@ import {
   GET_ITEMS,
   ADD_ITEM,
   DELETE_ITEM,
-  ITEM_LOADING,
   ITEMS_LOADING,
 } from "../actions/types";
 
