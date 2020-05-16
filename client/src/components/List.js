@@ -8,15 +8,25 @@ import PropTypes from "prop-types";
 
 class List extends Component {
   componentDidMount() {
-    this.props.getItems();
+    this.displayItems();
+    this.timer = setInterval(() => this.displayItems(), 2000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+    this.timer = null;
+  }
+  displayItems() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.getItems(this.props.auth.user.name);
+    }
   }
   onDeleteClick = (id) => {
     this.props.deleteItem(id);
   };
   static propTypes = {
     getItems: PropTypes.func.isRequired, //actions from redux are stored as prop
-    item: PropTypes.object.isRequired,
-    isAuthenticated: PropTypes.bool,
+    item: PropTypes.object,
+    auth: PropTypes.object.isRequired,
   };
   render() {
     const { items } = this.props.item;
@@ -24,11 +34,11 @@ class List extends Component {
     return (
       <Container>
         <ListGroup>
-          <TransitionGroup className="list">
-            {items.map(({ _id, name }) => (
-              <CSSTransition key={_id} timeout={500} classNames="fade">
-                <ListGroupItem>
-                  {this.props.isAuthenticated ? (
+          {this.props.auth.isAuthenticated ? (
+            <TransitionGroup className="list">
+              {items.map(({ _id, name }) => (
+                <CSSTransition key={_id} timeout={2000} classNames="fade">
+                  <ListGroupItem>
                     <Button
                       className="remove-btn mr-2"
                       color="danger"
@@ -37,13 +47,12 @@ class List extends Component {
                     >
                       &times;
                     </Button>
-                  ) : null}
-
-                  {name}
-                </ListGroupItem>
-              </CSSTransition>
-            ))}
-          </TransitionGroup>
+                    {name}
+                  </ListGroupItem>
+                </CSSTransition>
+              ))}
+            </TransitionGroup>
+          ) : null}
         </ListGroup>
       </Container>
     );
@@ -52,6 +61,6 @@ class List extends Component {
 
 const mapStateToProps = (state) => ({
   item: state.item,
-  isAuthenticated: state.auth.isAuthenticated,
+  auth: state.auth,
 });
 export default connect(mapStateToProps, { getItems, deleteItem })(List);

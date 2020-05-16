@@ -9,7 +9,7 @@ const Item = require("../../models/Item");
 //@description Get all posts
 //@access Public
 
-router.get("/:userID", (req, res) => {
+router.get("/:userID", auth, (req, res) => {
   // paths now protected
   Item.find({ userID: req.params.userID })
     .sort({ date: -1 })

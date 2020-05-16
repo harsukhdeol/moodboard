@@ -5,10 +5,11 @@ import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING } from "./types";
 import { tokenConfig } from "./authActions";
 import { returnErrors } from "./errorActions";
 
-export const getItems = () => (dispatch) => {
+export const getItems = (userID) => (dispatch, getState) => {
+  const user = userID.replace(/ /g, "%20");
   dispatch(setItemsLoading());
   axios
-    .get("/api/items")
+    .get(`/api/items/${user}`, tokenConfig(getState))
     .then((res) =>
       dispatch({
         type: GET_ITEMS,

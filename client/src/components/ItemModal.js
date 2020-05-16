@@ -22,7 +22,7 @@ class ItemModal extends Component {
   };
 
   static propTypes = {
-    isAuthenticated: PropTypes.bool,
+    auth: PropTypes.object.isRequired,
   };
   toggle = () => {
     this.setState({
@@ -38,6 +38,7 @@ class ItemModal extends Component {
     e.preventDefault();
     const newItem = {
       name: this.state.name,
+      userID: this.props.auth.user.name,
     };
     //add item with action
     this.props.addItem(newItem);
@@ -46,14 +47,15 @@ class ItemModal extends Component {
     this.toggle();
   };
   render() {
+    const { isAuthenticated } = this.props.auth;
     return (
       <div>
-        {this.props.isAuthenticated ? (
+        {isAuthenticated ? (
           <Button color="dark" className="mb-2" onClick={this.toggle}>
             Add Item
           </Button>
         ) : (
-          <h4 className="mb-3 ml-4">Please login to manage items</h4>
+          <h4 className="mb-3 ml-4">Please login to view and manage items</h4>
         )}
 
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
@@ -84,6 +86,6 @@ class ItemModal extends Component {
 const mapStateToProps = (state) => ({
   //map action to prop
   item: state.item,
-  isAuthenticated: state.auth.isAuthenticated,
+  auth: state.auth,
 });
 export default connect(mapStateToProps, { addItem })(ItemModal);
