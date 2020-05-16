@@ -26,6 +26,7 @@ class registerModal extends Component {
   static propTypes = {
     isAuthenticated: PropTypes.bool,
     error: PropTypes.object.isRequired,
+    register: PropTypes.func.isRequired,
   };
 
   toggle = () => {
@@ -41,7 +42,17 @@ class registerModal extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    this.toggle();
+    const { name, email, password } = this.state;
+    //Create user obj
+    const newUser = {
+      name,
+      email,
+      password,
+    };
+    //attempt to register
+    this.props.register(newUser);
+    /* //close modal
+    this.toggle(); */
   };
   render() {
     return (
