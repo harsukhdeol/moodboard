@@ -33,13 +33,20 @@ class RegisterModal extends Component {
     clearErrors: PropTypes.func.isRequired,
   };
   componentDidUpdate(prevProps) {
-    const { error } = this.props;
+    const { error, isAuthenticated } = this.props;
     if (error !== prevProps.error) {
       //check for register err
       if (error.id == "REGISTER_FAIL") {
         this.setState({ msg: error.msg.msg });
       } else {
         this.setState({ msg: null });
+      }
+    }
+
+    if (this.state.modal) {
+      //open modal
+      if (isAuthenticated) {
+        this.toggle();
       }
     }
   }
@@ -104,11 +111,11 @@ class RegisterModal extends Component {
                   className="mb-3"
                   onChange={this.onChange}
                 />
-                <Label for="pwd">Password</Label>
+                <Label for="password">Password</Label>
                 <Input
                   type="password"
-                  name="pwd"
-                  id="pwd"
+                  name="password"
+                  id="password"
                   placeholder="Password"
                   className="mb-3"
                   onChange={this.onChange}
