@@ -9,9 +9,9 @@ const Item = require("../../models/Item");
 //@description Get all posts
 //@access Public
 
-router.get("/", (req, res) => {
+router.get("/:userID", (req, res) => {
   // paths now protected
-  Item.find()
+  Item.find({ userID: req.params.userID })
     .sort({ date: -1 })
     .then((items) => res.json(items));
 });
@@ -23,6 +23,7 @@ router.get("/", (req, res) => {
 router.post("/", auth, (req, res) => {
   const newItem = new Item({
     name: req.body.name,
+    userID: req.body.userID,
   });
   newItem.save().then((item) => res.json(item));
 });

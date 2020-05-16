@@ -11,9 +11,9 @@ const ItemSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  /*  userID:{
-type:String,
-    } */
+  userID: {
+    type: String,
+  },
 });
 
 module.exports = Item = mongoose.model("item", ItemSchema);
