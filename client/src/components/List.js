@@ -13,6 +13,11 @@ class List extends Component {
   onDeleteClick = (id) => {
     this.props.deleteItem(id);
   };
+  static propTypes = {
+    getItems: PropTypes.func.isRequired, //actions from redux are stored as prop
+    item: PropTypes.object.isRequired,
+    isAuthenticated: PropTypes.bool,
+  };
   render() {
     const { items } = this.props.item;
 
@@ -23,14 +28,17 @@ class List extends Component {
             {items.map(({ _id, name }) => (
               <CSSTransition key={_id} timeout={500} classNames="fade">
                 <ListGroupItem>
-                  <Button
-                    className="remove-btn mr-2"
-                    color="danger"
-                    size="sm"
-                    onClick={this.onDeleteClick.bind(this, _id)}
-                  >
-                    &times;
-                  </Button>
+                  {this.props.isAuthenticated ? (
+                    <Button
+                      className="remove-btn mr-2"
+                      color="danger"
+                      size="sm"
+                      onClick={this.onDeleteClick.bind(this, _id)}
+                    >
+                      &times;
+                    </Button>
+                  ) : null}
+
                   {name}
                 </ListGroupItem>
               </CSSTransition>
@@ -41,11 +49,9 @@ class List extends Component {
     );
   }
 }
-List.propTypes = {
-  getItems: PropTypes.func.isRequired, //actions from redux are stored as prop
-  item: PropTypes.object.isRequired,
-};
+
 const mapStateToProps = (state) => ({
   item: state.item,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 export default connect(mapStateToProps, { getItems, deleteItem })(List);
