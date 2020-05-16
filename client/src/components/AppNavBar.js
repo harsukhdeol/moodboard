@@ -10,7 +10,7 @@ import {
   NavItem,
 } from "reactstrap";
 
-import RegisterModal from "./auth/registerModal";
+import RegisterModal from "./auth/RegisterModal";
 
 class AppNavbar extends Component {
   state = {

@@ -9,13 +9,16 @@ import {
   Label,
   Input,
   NavLink,
+  Alert,
 } from "reactstrap";
 
 //container - component hooked to redux
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { register } from "../../actions/authActions";
-class registerModal extends Component {
+import { clearErrors } from "../../actions/errorActions";
+
+class RegisterModal extends Component {
   state = {
     modal: false,
     name: "",
@@ -27,9 +30,22 @@ class registerModal extends Component {
     isAuthenticated: PropTypes.bool,
     error: PropTypes.object.isRequired,
     register: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired,
   };
-
+  componentDidUpdate(prevProps) {
+    const { error } = this.props;
+    if (error !== prevProps.error) {
+      //check for register err
+      if (error.id == "REGISTER_FAIL") {
+        this.setState({ msg: error.msg.msg });
+      } else {
+        this.setState({ msg: null });
+      }
+    }
+  }
   toggle = () => {
+    //clear errs
+    this.props.clearErrors();
     this.setState({
       modal: !this.state.modal,
     });
@@ -64,6 +80,9 @@ class registerModal extends Component {
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>Register</ModalHeader>
           <ModalBody>
+            {this.state.msg ? (
+              <Alert color="danger">{this.state.msg}</Alert>
+            ) : null}
             <Form onSubmit={this.onSubmit}>
               <FormGroup>
                 <Label for="name">Name</Label>
@@ -110,5 +129,7 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
   error: state.error, // get from auth reducer
 });
-export default connect(mapStateToProps, { register })(registerModal);
+export default connect(mapStateToProps, { register, clearErrors })(
+  RegisterModal
+);
 //need to put all actions in connect to connnect to react
