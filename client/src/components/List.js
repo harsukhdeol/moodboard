@@ -1,5 +1,16 @@
 import React, { Component } from "react";
-import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
+import {
+  Container,
+  ListGroup,
+  Card,
+  CardImg,
+  CardText,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  CardColumns,
+  Button,
+} from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import { connect } from "react-redux";
@@ -33,27 +44,30 @@ class List extends Component {
 
     return (
       <Container>
-        <ListGroup>
-          {this.props.auth.isAuthenticated ? (
-            <TransitionGroup className="list">
-              {items.map(({ _id, name }) => (
-                <CSSTransition key={_id} timeout={2000} classNames="fade">
-                  <ListGroupItem>
+        {this.props.auth.isAuthenticated ? (
+          <TransitionGroup className="list">
+            {items.map(({ _id, name }) => (
+              <CSSTransition key={_id} timeout={2000} classNames="fade">
+                <Card>
+                  <CardImg top width="30vw" src="#" alt="Card image cap" />
+                  <CardBody>
+                    <CardTitle>Card title</CardTitle>
+                    <CardText>{name}</CardText>
+
                     <Button
                       className="remove-btn mr-2"
                       color="danger"
                       size="sm"
                       onClick={this.onDeleteClick.bind(this, _id)}
                     >
-                      &times;
+                      &times; Delete Item
                     </Button>
-                    {name}
-                  </ListGroupItem>
-                </CSSTransition>
-              ))}
-            </TransitionGroup>
-          ) : null}
-        </ListGroup>
+                  </CardBody>
+                </Card>
+              </CSSTransition>
+            ))}
+          </TransitionGroup>
+        ) : null}
       </Container>
     );
   }
