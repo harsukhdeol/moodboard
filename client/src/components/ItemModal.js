@@ -18,6 +18,7 @@ import PropTypes from "prop-types";
 class ItemModal extends Component {
   state = {
     modal: false,
+    title: "",
     name: "",
   };
 
@@ -38,6 +39,7 @@ class ItemModal extends Component {
     e.preventDefault();
     const newItem = {
       name: this.state.name,
+      title: this.state.title,
       userID: this.props.auth.user.name,
     };
     //add item with action
@@ -63,12 +65,28 @@ class ItemModal extends Component {
           <ModalBody>
             <Form onSubmit={this.onSubmit}>
               <FormGroup>
-                <Label for="item">Item</Label>
+                <Label for="title">Title</Label>
+                <Input
+                  type="text"
+                  name="title"
+                  id="title"
+                  placeholder="Add title"
+                  onChange={this.onChange}
+                />
+                <Label for="item">Text</Label>
                 <Input
                   type="text"
                   name="name"
                   id="item"
-                  placeholder="Add item"
+                  placeholder="Add Text"
+                  onChange={this.onChange}
+                />
+                <Label for="img">Link image</Label>
+                <Input
+                  type="file"
+                  name="img"
+                  id="img"
+                  placeholder="Add image url"
                   onChange={this.onChange}
                 />
 

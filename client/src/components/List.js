@@ -43,15 +43,18 @@ class List extends Component {
     const { items } = this.props.item;
 
     return (
-      <Container>
+      <CardColumns>
         {this.props.auth.isAuthenticated ? (
           <TransitionGroup className="list">
-            {items.map(({ _id, name }) => (
+            {items.map(({ _id, name, img, title }) => (
               <CSSTransition key={_id} timeout={2000} classNames="fade">
                 <Card>
-                  <CardImg top width="30vw" src="#" alt="Card image cap" />
+                  {img ? (
+                    <CardImg top width="100%" src="#" alt="Card image cap" />
+                  ) : null}
+
                   <CardBody>
-                    <CardTitle>Card title</CardTitle>
+                    <CardTitle>{title}</CardTitle>
                     <CardText>{name}</CardText>
 
                     <Button
@@ -68,7 +71,7 @@ class List extends Component {
             ))}
           </TransitionGroup>
         ) : null}
-      </Container>
+      </CardColumns>
     );
   }
 }

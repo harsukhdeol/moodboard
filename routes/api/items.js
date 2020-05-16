@@ -23,6 +23,7 @@ router.get("/:userID", auth, (req, res) => {
 router.post("/", auth, (req, res) => {
   const newItem = new Item({
     name: req.body.name,
+    title: req.body.title,
     userID: req.body.userID,
   });
   newItem.save().then((item) => res.json(item));
