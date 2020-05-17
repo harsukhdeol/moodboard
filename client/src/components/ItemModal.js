@@ -20,6 +20,7 @@ class ItemModal extends Component {
     modal: false,
     title: "",
     name: "",
+    imgURL: "",
   };
 
   static propTypes = {
@@ -36,11 +37,13 @@ class ItemModal extends Component {
   };
 
   onSubmit = (e) => {
+    console.log(this.props.auth.user._id);
     e.preventDefault();
     const newItem = {
       name: this.state.name,
       title: this.state.title,
-      userID: this.props.auth.user.name,
+      userID: this.props.auth.user._id,
+      imgURL: this.state.imgURL,
     };
     //add item with action
     this.props.addItem(newItem);
@@ -81,11 +84,11 @@ class ItemModal extends Component {
                   placeholder="Add Text"
                   onChange={this.onChange}
                 />
-                <Label for="img">Link image</Label>
+                <Label for="imgURL">Image Url</Label>
                 <Input
-                  type="file"
-                  name="img"
-                  id="img"
+                  type="text"
+                  name="imgURL"
+                  id="imgURL"
                   placeholder="Add image url"
                   onChange={this.onChange}
                 />

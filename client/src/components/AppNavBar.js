@@ -59,10 +59,13 @@ class AppNavbar extends Component {
       <div>
         <Navbar color="dark" dark expand="sm" className="mb-5">
           <Container>
-            <NavbarBrand href="/">List</NavbarBrand>
+            <NavbarBrand href="/">MoodBoard App</NavbarBrand>
             <NavbarToggler onClick={this.toggle}></NavbarToggler>
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
+                <NavLink href="https://github.com/harsukhdeol/moodboard">
+                  View Repo
+                </NavLink>
                 {isAuthenticated ? authLinks : guestLinks}
               </Nav>
             </Collapse>

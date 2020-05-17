@@ -6,10 +6,9 @@ import { tokenConfig } from "./authActions";
 import { returnErrors } from "./errorActions";
 
 export const getItems = (userID) => (dispatch, getState) => {
-  const user = userID.replace(/ /g, "%20");
   dispatch(setItemsLoading());
   axios
-    .get(`/api/items/${user}`, tokenConfig(getState))
+    .get(`/api/items/${userID}`, tokenConfig(getState))
     .then((res) =>
       dispatch({
         type: GET_ITEMS,

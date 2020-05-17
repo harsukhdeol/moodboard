@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import {
-  Container,
-  ListGroup,
   Card,
   CardImg,
   CardText,
   CardBody,
   CardTitle,
-  CardSubtitle,
   CardColumns,
   Button,
 } from "reactstrap";
@@ -28,7 +25,7 @@ class List extends Component {
   }
   displayItems() {
     if (this.props.auth.isAuthenticated) {
-      this.props.getItems(this.props.auth.user.name);
+      this.props.getItems(this.props.auth.user._id);
     }
   }
   onDeleteClick = (id) => {
@@ -46,15 +43,20 @@ class List extends Component {
       <CardColumns>
         {this.props.auth.isAuthenticated ? (
           <TransitionGroup className="list">
-            {items.map(({ _id, name, img, title }) => (
+            {items.map(({ _id, name, title, imgURL }) => (
               <CSSTransition key={_id} timeout={2000} classNames="fade">
                 <Card>
-                  {img ? (
-                    <CardImg top width="100%" src="#" alt="Card image cap" />
+                  {imgURL ? (
+                    <CardImg
+                      top
+                      width="100%"
+                      src={imgURL}
+                      alt="Card image cap"
+                    />
                   ) : null}
 
                   <CardBody>
-                    <CardTitle>{title}</CardTitle>
+                    <CardTitle className="font-weight-bold">{title}</CardTitle>
                     <CardText>{name}</CardText>
 
                     <Button

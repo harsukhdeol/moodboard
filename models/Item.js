@@ -13,8 +13,12 @@ const ItemSchema = new Schema({
   },
   userID: {
     type: String,
+    required: true,
   },
   title: {
+    type: String,
+  },
+  imgURL: {
     type: String,
   },
 });
