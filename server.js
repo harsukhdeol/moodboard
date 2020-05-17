@@ -36,8 +36,8 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build")); //- set build folder location
   app.get("*", (req, res) => {
     //load html
-    //res.sendFile(path.join(__dirname, "client", "build")); //send link
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html")); //send link
+    res.sendFile(path.join(__dirname, "client", "build", "index.html")); //send link
+    //res.sendFile(path.resolve(__dirname, "client", "build", "index.html")); //send link
   });
 }
 const port = process.env.PORT || 5000;
