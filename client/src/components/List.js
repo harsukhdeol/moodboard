@@ -16,8 +16,8 @@ import PropTypes from "prop-types";
 
 class List extends Component {
   componentDidMount() {
-    this.displayItems();
-    this.timer = setInterval(() => this.displayItems(), 2000);
+    // this.displayItems();
+    this.timer = setInterval(() => this.displayItems(), 1000);
   }
   componentWillUnmount() {
     clearInterval(this.timer);
@@ -25,7 +25,8 @@ class List extends Component {
   }
   displayItems() {
     if (this.props.auth.isAuthenticated) {
-      this.props.getItems(this.props.auth.user._id);
+      const id = this.props.auth.user.id || this.props.auth.user._id;
+      this.props.getItems(id);
     }
   }
   onDeleteClick = (id) => {
@@ -44,7 +45,7 @@ class List extends Component {
         {this.props.auth.isAuthenticated ? (
           <TransitionGroup className="list">
             {items.map(({ _id, name, title, imgURL }) => (
-              <CSSTransition key={_id} timeout={2000} classNames="fade">
+              <CSSTransition key={_id} timeout={100} classNames="fade">
                 <Card>
                   {imgURL ? (
                     <CardImg
