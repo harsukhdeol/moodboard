@@ -11,7 +11,6 @@ const Item = require("../../models/Item");
 
 router.get("/:userID", auth, (req, res) => {
   // paths now protected
-  console.log(req.params.userID);
   Item.find({ userID: req.params.userID })
     .sort({ date: -1 })
     .then((items) => res.json(items));

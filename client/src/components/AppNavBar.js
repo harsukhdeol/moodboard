@@ -63,9 +63,6 @@ class AppNavbar extends Component {
             <NavbarToggler onClick={this.toggle}></NavbarToggler>
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
-                <NavLink href="https://github.com/harsukhdeol/moodboard">
-                  View Repo
-                </NavLink>
                 {isAuthenticated ? authLinks : guestLinks}
               </Nav>
             </Collapse>
