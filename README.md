@@ -24,6 +24,7 @@ Registration and Login components handle errors like user not found, invalid cre
 Once you're logged in, it'll show you everything you've added before in a grid layout
 
 ![](img/user.png)
+Once more items are add, the grid layout becomes evident
 ![](img/layout.png)
 
 ## Add Item
